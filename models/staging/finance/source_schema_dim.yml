@@ -1,0 +1,42 @@
+version: 2
+
+sources:
+  - name: raw_finance
+    description: "Raw finance data landed from bank systems."
+    database: FINANCE_PROJECT
+    loader: "manual/adf/fivetran"
+    schema: dim
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+    meta:
+      owner: "data-platform"
+      domain: "dimensional tables for finance"
+#   freshness:
+#     warn_after: { count: 1, period: month }
+#     error_after: { count: 1, period: year }
+    tables:
+      - name: BANK_ACCOUNT
+        description: "Dim bank accounts"
+        loaded_at_field: staging_insert_time
+        columns:
+          - name: BANK_ID
+            tests: [not_null]
+          - name: BANK_ACCOUNT_SK
+            tests: [not_null,unique]
+          - name: INSTITUTION_NAME    
+            tests: [not_null]
+      - name: BANK_PRODUCTS 
+        description: 'products of the bank like credit card, debit, trading'    
+        loaded_at_field: staging_insert_time
+        columns:
+          - name: BANK_PRODUCTS_SK
+            tests: [not_null,unique]
+          - name: BANK_PRODUCT_ID
+            tests: [not_null]
+          - name: BANK_ID
+            tests: [not_null]
+          - name: PRODUCT_NAME    
+            tests: [not_null] 
+
