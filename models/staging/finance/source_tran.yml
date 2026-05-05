@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: raw_finance_transactions
+    description: "raw transactions from credit cards"
+    database: FINANCE_PROJECT
+    schema: TRAN
+    freshness:
+      warn_after: { count: 1, period: day }
+      error_after: { count: 7, period: day }
+
+    tables:
+      - name: TD_AEROPLAN_VISA_INFINITE
+        description: "Dim bank accounts"
+        loaded_at_field: staging_insert_time
