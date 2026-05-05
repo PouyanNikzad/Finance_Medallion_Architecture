@@ -1,0 +1,11 @@
+version: 2
+
+sources: 
+ - name: raw_finance_transactions
+   description: 'raw transactions from credit cards'
+   database: finance_project
+   schema: tran
+
+   tables:
+     - name: TD_AEROPLAN_VISA_INFINITE
+
