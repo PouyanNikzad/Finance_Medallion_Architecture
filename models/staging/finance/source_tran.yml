@@ -13,3 +13,6 @@ sources:
       - name: TD_AEROPLAN_VISA_INFINITE
         description: "Dim bank accounts"
         loaded_at_field: staging_insert_time
+
+      - name: BANK_TRANS_RAW  
+        description: 'raw td transactions'
