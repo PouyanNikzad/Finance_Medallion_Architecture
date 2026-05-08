@@ -10,9 +10,24 @@ sources:
       error_after: { count: 7, period: day }
 
     tables:
-      - name: TD_AEROPLAN_VISA_INFINITE
-        description: "Dim bank accounts"
-        loaded_at_field: staging_insert_time
 
-      - name: BANK_TRANS_RAW  
-        description: 'raw td transactions'
+      - name: CONEXUS_DEBIT_CARD_TRANSACTIONS
+        description: "Raw debit card transactions sourced from Conexus Credit Union, including merchant details, transaction dates, and debit/credit amounts."
+
+      - name: TD_AEROPLANE_CREDIT_TRANSACTIONS
+        description: "Raw credit card transactions from TD Aeroplan credit card accounts, capturing purchase activity, merchant information, and transaction amounts."
+
+      - name: TD_DEBIT_CARD_TRANSACTIONS
+        description: "Raw debit card transactions from TD bank accounts, representing day-to-day spending with merchant details and balance movements."
+
+      - name: TD_CAD_CASH_INVEST_TRANSACTIONS
+        description: "Raw transaction records for TD Canadian dollar cash investment accounts, including deposits, withdrawals, and balance changes."
+
+      - name: TD_CAD_RRSP_INVEST_TRANSACTIONS
+        description: "Raw transaction activity for TD RRSP investment accounts in CAD, capturing contributions, trades, and portfolio value changes."
+
+      - name: TD_CAD_TFSA_INVEST_TRANSACTIONS
+        description: "Raw transaction data for TD TFSA investment accounts in CAD, including contributions, withdrawals, and investment performance metrics."
+
+      - name: TD_USD_CASH_INVEST_TRANSACTIONS
+        description: "Raw transaction records for TD USD-denominated cash investment accounts, tracking cross-currency balances, deposits, and withdrawals."

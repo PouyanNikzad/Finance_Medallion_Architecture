@@ -13,7 +13,7 @@ select
   ]) }} as TRAN_TD_AEROPLAN_VISA_INFINITE_hKey,
   t.*
   ,'TD' as INISTITUE_SCHEMA_NAME,'TD Aeroplane Visa Infinite' as PRODUCT_NAME,current_timestamp() as STAGING_INSERT_TIME
-from {{ source("raw_finance_transactions","TD_AEROPLANE_CREDIT_TRANSACTIONS") }} t
+from {{ source("raw_finance_transactions","TD_DEBIT_CARD_TRANSACTIONS") }} t
 
     {% if is_incremental() %}
       -- Lookback window to capture late-arriving records
