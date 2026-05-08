@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='TRAN_TD_AEROPLAN_VISA_INFINITE_hKey',
+    unique_key='CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey',
     incremental_strategy='merge'
 ) }}
 
@@ -10,9 +10,9 @@ select
       'transaction_date',
       'merchant_name',
       "coalesce(credit,debit)"
-  ]) }} as TRAN_TD_AEROPLAN_VISA_INFINITE_hKey,
+  ]) }} as CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey,
   t.*
-  ,'TD' as INISTITUE_SCHEMA_NAME,'TD Aeroplane Visa Infinite' as PRODUCT_NAME,current_timestamp() as STAGING_INSERT_TIME
+  ,'CONEXUS' as INISTITUE_SCHEMA_NAME,'CONEXUS_DEBIT_CARD' as PRODUCT_NAME,current_timestamp() as STAGING_INSERT_TIME
 from {{ source("raw_finance_transactions","CONEXUS_DEBIT_CARD_TRANSACTIONS") }} t
 
     {% if is_incremental() %}
@@ -27,7 +27,7 @@ deduped as (
     select *
     from cte
     qualify row_number() over (
-        partition by TRAN_TD_AEROPLAN_VISA_INFINITE_hKey
+        partition by CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey
         order by STAGING_INSERT_TIME desc
     ) = 1
 )
