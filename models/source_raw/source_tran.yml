@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw_finance_transactions
-    description: "raw transactions from credit cards"
+    description: "raw transactions from credit cards, debit accounts, stock brokers, mortgages"
     database: FINANCE_PROJECT
     schema: TRAN
     freshness:
@@ -13,6 +13,14 @@ sources:
 
       - name: CONEXUS_DEBIT_CARD_TRANSACTIONS
         description: "Raw debit card transactions sourced from Conexus Credit Union, including merchant details, transaction dates, and debit/credit amounts."
+        columns:
+          - name: credit
+            tests:
+              - dbt_utils.expression_is_true:
+                  expression: "is null or credit <= 0"
+
+
+
 
       - name: TD_AEROPLANE_CREDIT_TRANSACTIONS
         description: "Raw credit card transactions from TD Aeroplan credit card accounts, capturing purchase activity, merchant information, and transaction amounts."
