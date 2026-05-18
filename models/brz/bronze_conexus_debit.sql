@@ -1,9 +1,3 @@
-{{ config(
-    materialized='incremental',
-    unique_key='CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey',
-    incremental_strategy='merge'
-) }}
-
 with cte as 
 (
 select
@@ -11,7 +5,7 @@ select
       'transaction_date',
       'merchant_name',
       "coalesce(credit,debit)"
-  ]) }} as CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey,
+  ]) }} as TRANSACTIONS_hKey,
   	TRANSACTION_DATE,
 	MERCHANT_NAME,
 	CREDIT,
@@ -33,7 +27,7 @@ deduped as (
     from cte
     qualify 
         row_number() over (
-        partition by CONEXUS_DEBIT_CARD_TRANSACTIONS_hKey
+        partition by TRANSACTIONS_hKey
         order by STAGING_INSERT_TIME desc
     ) = 1
 )
