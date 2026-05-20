@@ -40,13 +40,15 @@ models:
     # Applies to all files under models/example/
     brz:
       +schema: brz
-      +materialized: table
+      +materialized: incremental
+      +incremental_strategy: merge
+      +unique_key: TRANSACTIONS_hKey
     slv:
       +schema: slv    
-      +materialized: table
+      +materialized: view
     gld:
       +schema: gld    
-      +materialized: table      
+      +materialized: view      
     mart:
       +schema: mrt    
       +materialized: view      

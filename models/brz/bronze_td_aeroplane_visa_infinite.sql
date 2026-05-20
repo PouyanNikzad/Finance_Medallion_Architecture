@@ -1,16 +1,10 @@
-{{ config(
-    materialized='incremental',
-    unique_key='TRAN_TD_AEROPLAN_VISA_INFINITE_hKey',
-    incremental_strategy='merge'
-) }}
-
 with cte as (
 select
   {{ dbt_utils.generate_surrogate_key([
       'transaction_date',
       'merchant_name',
       "coalesce(credit,debit)"
-  ]) }} as TRAN_TD_AEROPLAN_VISA_INFINITE_hKey,
+  ]) }} as TRANSACTIONS_hKey,
   t.*
   ,'TD' as INISTITUE_SCHEMA_NAME,'TD Aeroplane Visa Infinite' as PRODUCT_NAME,current_timestamp() as STAGING_INSERT_TIME
 from {{ source("raw_finance_transactions","TD_AEROPLANE_CREDIT_TRANSACTIONS") }} t
@@ -27,7 +21,7 @@ deduped as (
     select *
     from cte
     qualify row_number() over (
-        partition by TRAN_TD_AEROPLAN_VISA_INFINITE_hKey
+        partition by TRANSACTIONS_hKey
         order by STAGING_INSERT_TIME desc
     ) = 1
 )
