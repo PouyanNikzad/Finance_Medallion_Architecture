@@ -41,3 +41,6 @@ sources:
 
       - name: TD_USD_CASH_INVEST_TRANSACTIONS
         description: "Raw transaction records for TD USD-denominated cash investment accounts, tracking cross-currency balances, deposits, and withdrawals."
+
+      - name: QUESTRADE
+        description: "Raw transaction records for QUESTRADE."        
