@@ -9,7 +9,7 @@
   {% set product_lit   = sql_string_literal(product_name) %}
 
 
-  {% set sql %}
+{% set sql %}
 with src as (
     select
         {{ dbt_utils.generate_surrogate_key([
@@ -35,8 +35,8 @@ latest_hash as (
     {% if is_incremental() %}
     select
         t.TRANSACTIONS_hKey,
-        t.TRANSACTIONS_hdiff
-    from {{ this }} t
+        t.TRANSACTIONS_hdiff  
+    from {{ this }} t  {#  {{this}} is the target table -#}   
     qualify row_number() over (
         partition by TRANSACTIONS_hKey
         order by STAGING_INSERT_TIME desc
@@ -54,9 +54,11 @@ left join latest_hash h
   on s.TRANSACTIONS_hKey = h.TRANSACTIONS_hKey
 where h.TRANSACTIONS_hKey is null
    or s.TRANSACTIONS_hdiff <> h.TRANSACTIONS_hdiff
-  {% endset %}
 
-  {{ return(sql) }}
+
+{% endset %}
+
+{{ return(sql) }}
 {% endmacro %}
 
 
