@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: bronze_td_cash_cad
+    tests:
+      - no_hash_collision:
+          hash_column: TRANSACTIONS_hKey
+          hashed_fields: ["SYMBOL", "MARKET", "AVERAGE_COST"]
+
+  - name: bronze_td_tfsa_cad
+    tests:
+      - no_hash_collision:
+          hash_column: TRANSACTIONS_hKey
+          hashed_fields: ["SYMBOL", "MARKET", "AVERAGE_COST"]
+
+  - name: bronze_td_rrsp_cad
+    tests:
+      - no_hash_collision:
+          hash_column: TRANSACTIONS_hKey
+          hashed_fields: ["SYMBOL", "MARKET", "AVERAGE_COST"]
+
+  - name: bronze_td_cash_usd
+    tests:
+      - no_hash_collision:
+          hash_column: TRANSACTIONS_hKey
+          hashed_fields: ["SYMBOL", "MARKET", "AVERAGE_COST"]
